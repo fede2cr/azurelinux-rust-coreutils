@@ -259,5 +259,5 @@ ln -v -sf ../../../../bin/coreutils %{buildroot}%{_libdir}/cargo/bin/coreutils/y
 %doc README.md
 
 %changelog
-* Wed Abr 9 2025 Álvaro Figueroa <alvaro.figueroa@microsoft.com> - 0.3.0-1
+* Wed Apr 9 2025 Álvaro Figueroa <alvaro.figueroa@microsoft.com> - 0.3.0-1
 - Initial package

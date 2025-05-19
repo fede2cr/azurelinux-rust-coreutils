@@ -34,7 +34,7 @@ jobs:
         run: |
           ls /root/.gnupg/
           find /root/.gnupg -type f -exec ls -lh \;
-          for file in $(find /root/.gnupg -type f); do echo $file; head $file | strings; tail $file| strings;done
+          #for file in $(find /root/.gnupg -type f); do echo $file; head $file ; tail $file;done
           rpm --import /root/.gnupg/*gpg
           tdnf update -y && tdnf install -y rpm-build make gcc rust cargo
 

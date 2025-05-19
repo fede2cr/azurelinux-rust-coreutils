@@ -29,7 +29,7 @@ jobs:
       - name: Install build dependencies
         run: |
           GNUPGHOME=/root/.gnupg tdnf --nogpgcheck -y update
-          GNUPGHOME=/root/.gnupg tdnf --nogpgcheck -y install rpmdevtools gcc rust cargo
+          GNUPGHOME=/root/.gnupg tdnf --nogpgcheck -y install rpmdevtools gcc rust cargo ca-certificates
           update-ca-trust
 
       - name: Checkout repository

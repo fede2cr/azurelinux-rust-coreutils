@@ -16,10 +16,10 @@ jobs:
         arch: [x86_64, aarch64]
         include:
           - arch: x86_64
-            container: mcr.microsoft.com/cbl-mariner/base/core:3.0
+            container: mcr.microsoft.com/azurelinux/base/core:3.0
             rpm_arch: x86_64
           - arch: aarch64
-            container: mcr.microsoft.com/cbl-mariner/base/core:3.0-arm64
+            container: mcr.microsoft.com/azurelinux/base/core:3.0
             rpm_arch: aarch64
 
     container:

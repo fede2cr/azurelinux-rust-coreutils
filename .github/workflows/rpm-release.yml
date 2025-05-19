@@ -28,7 +28,9 @@ jobs:
     steps:
       - name: Install build dependencies
         run: |
+          GNUPGHOME=/root/.gnupg tdnf --nogpgcheck -y update
           GNUPGHOME=/root/.gnupg tdnf --nogpgcheck -y install rpmdevtools gcc rust cargo
+          update-ca-trust
 
       - name: Checkout repository
         uses: actions/checkout@v4

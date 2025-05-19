@@ -33,8 +33,8 @@ jobs:
       - name: Install build dependencies
         run: |
           rpm --import https://packages.microsoft.com/keys/microsoft.asc
-          tdnf update --nogpgcheck -y
-          tdnf install -y --nogpgcheck rpm-build make gcc rust cargo
+          tdnf --nogpgcheck -y update 
+          tdnf --nogpgcheck -y install rpm-build make gcc rust cargo
 
       - name: Checkout repository
         uses: actions/checkout@v4

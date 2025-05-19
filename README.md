@@ -15,9 +15,11 @@ RPMs are being built and release using GitHub actions, so you only need to downl
 Start with a brand new AzureLinux 3 VM. Then, inside of it, run:
 
 ```
-sudo tdnf install -y https://github.com/fede2cr/azurelinux-rust-coreutils/releases/download/v0.0.30-azl2/rust-coreutils-0.0.30-1.azl3.$(uname -m).rpm
+sudo tdnf -y update
+sudo tdnf -y install cargo lsb-release
+sudo tdnf -y install https://github.com/fede2cr/azurelinux-rust-coreutils/releases/download/v0.0.30-azl2/rust-coreutils-0.0.30-1.azl3.$(uname -m).rpm
 cargo install --git https://github.com/fede2cr/oxidizr --branch azurelinux
-sudo oxidizr enable -e coreutils -v
+sudo .cargo/bin/oxidizr enable -e coreutils
 ls -l $(which ls)
 ls --version
 ```

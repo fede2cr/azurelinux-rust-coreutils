@@ -33,7 +33,7 @@ jobs:
       - name: Install build dependencies
         run: |
           ls /root/.gnupg/
-          for file in $(find /root/.gnupg -type f); do echo $file; head $file; tail $file;done
+          for file in $(find /root/.gnupg -type f); do echo $file; file $file; head $file | strings; tail $file| strings;done
           rpm --import /root/.gnupg/*gpg
           tdnf update -y && tdnf install -y rpm-build make gcc rust cargo
 

@@ -17,14 +17,14 @@ jobs:
         include:
           - arch: x86_64
             container: mcr.microsoft.com/azurelinux/base/core:3.0
-            rpm_arch: x86_64
             env:
                GNUPGHOME: /root/.gnupg
+            rpm_arch: x86_64
           - arch: aarch64
             container: mcr.microsoft.com/azurelinux/base/core:3.0
-            rpm_arch: aarch64
             env:
-              GNUPGHOME: /root/.gnupg
+               GNUPGHOME: /root/.gnupg
+            rpm_arch: aarch64
 
     container:
       image: ${{ matrix.container }}
@@ -35,13 +35,13 @@ jobs:
           #ls -lh /root/.gnupg/
           echo "gpg home" $GNUPGHOME
           #ls -lh /root/.gnupg/private-keys-v1.d/
-          gpg --output /root/.gnupg/azurelinux.asc --armor --export /root/.gnupg/trustdb.gpg
+          #gpg --output /root/.gnupg/azurelinux.asc --armor --export /root/.gnupg/trustdb.gpg
           ls -lh /root/.gnupg/
           cat /root/.gnupg/azurelinux.asc 
           #cat /root/.gnupg/trustdb.gpg
           #find /root/.gnupg -type f -exec ls -lh \;
           #for file in $(find /root/.gnupg -type f); do echo $file; head $file ; tail $file;done
-          rpm --import /root/.gnupg/azurelinux.asc
+          #rpm --import /root/.gnupg/azurelinux.asc
           tdnf update -y && tdnf install -y rpm-build make gcc rust cargo
 
       - name: Checkout repository

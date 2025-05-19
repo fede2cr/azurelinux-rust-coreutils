@@ -28,7 +28,7 @@ jobs:
     steps:
       - name: Install build dependencies
         run: |
-          tdnf install -y rpm-build make gcc rust cargo
+          tdnf update -y && tdnf install -y rpm-build make gcc rust cargo
 
       - name: Checkout repository
         uses: actions/checkout@v4

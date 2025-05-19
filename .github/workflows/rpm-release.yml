@@ -17,13 +17,9 @@ jobs:
         include:
           - arch: x86_64
             container: mcr.microsoft.com/azurelinux/base/core:3.0
-            env:
-               GNUPGHOME: /root/.gnupg
             rpm_arch: x86_64
           - arch: aarch64
             container: mcr.microsoft.com/azurelinux/base/core:3.0
-            env:
-               GNUPGHOME: /root/.gnupg
             rpm_arch: aarch64
 
     container:
@@ -32,18 +28,16 @@ jobs:
     steps:
       - name: Install build dependencies
         run: |
-          GNUPGHOME=/root/.gnupg rpm --import https://packages.microsoft.com/keys/microsoft.asc
-          GNUPGHOME=/root/.gnupg tdnf --nogpgcheck -y update 
-          GNUPGHOME=/root/.gnupg tdnf --nogpgcheck -y install rpm-build make gcc rust cargo
+          GNUPGHOME=/root/.gnupg tdnf --nogpgcheck -y install rpmdevtools gcc rust cargo
 
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Prepare RPM build environment
         run: |
-          mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
+          rpmdev-setuptree
           cp rust-coreutils/*.spec ~/rpmbuild/SPECS/
-          tar czf ~/rpmbuild/SOURCES/rust-coreutils.tar.gz rust-coreutils
+          spectool -g ~/rpmbuild/SPECS/rust-coreutils.spec
 
       - name: Build RPM
         run: |

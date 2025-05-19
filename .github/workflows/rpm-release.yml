@@ -38,8 +38,7 @@ jobs:
         run: |
           rpmdev-setuptree
           cp rust-coreutils/*.spec ~/rpmbuild/SPECS/
-          spectool -D -C ~/rpmbuild/SOURCES/ -g ~/rpmbuild/SPECS/rust-coreutils.spec
-          find / -type f -name 0.0.30.tar.gz 2>/dev/null 
+          spectool -C ~/rpmbuild/SOURCES/ -g ~/rpmbuild/SPECS/rust-coreutils.spec
 
       - name: Build RPM
         run: |

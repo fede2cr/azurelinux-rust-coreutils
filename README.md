@@ -10,28 +10,18 @@ t for running the rust-coreutils.
 
 ## Instructions
 
-Start with a brand new AzureLinux 3 VM.
+RPMs are being built and release using GitHub actions, so you only need to download the package and install it.
 
-Then, inside of it, run:
+Start with a brand new AzureLinux 3 VM. Then, inside of it, run:
 
 ```
-sudo tdnf update -y
-sudo tdnf install -y lsb-release git rpmdevtools cargo gcc rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-. "$HOME/.cargo.env"
-rpmdev-setuptree
-git clone https://github.com/fede2cr/azurelinux-rust-coreutils.git
-cd azurelinux-rust-coreutils/rust-coreutils
-spectool -g rust-coreutils.spec
-rpmbuild -ba rust-coreutils.spec
-sudo tdnf install -y $HOME/rpmbuild/RPMS/$(uname -m)/rust-coreutils-0*rpm
-cd
-git clone https://github.com/fede2cr/oxidizr
-cd oxidizr
-git checkout azurelinux
-cargo build
-sudo target/debug/oxidizr enable -e coreutils -v
+sudo tdnf -y update
+sudo tdnf -y install cargo lsb-release
+sudo tdnf -y install https://github.com/fede2cr/azurelinux-rust-coreutils/releases/download/v0.0.30-azl2/rust-coreutils-0.0.30-1.azl3.$(uname -m).rpm
+cargo install --git https://github.com/fede2cr/oxidizr --branch azurelinux
+sudo .cargo/bin/oxidizr enable -e coreutils
 ls -l $(which ls)
+ls --version
 ```
 
 Great. Now do your benchmarks and stress testing here.

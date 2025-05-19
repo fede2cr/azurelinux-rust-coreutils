@@ -1,0 +1,67 @@
+name: Build and Release RPM
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build-rpm:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: [x86_64, aarch64]
+        include:
+          - arch: x86_64
+            container: mcr.microsoft.com/cbl-mariner/base/core:3.0
+            rpm_arch: x86_64
+          - arch: aarch64
+            container: mcr.microsoft.com/cbl-mariner/base/core:3.0-arm64
+            rpm_arch: aarch64
+
+    container:
+      image: ${{ matrix.container }}
+
+    steps:
+      - name: Install build dependencies
+        run: |
+          tdnf install -y rpm-build make gcc rust cargo
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Prepare RPM build environment
+        run: |
+          mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
+          cp rust-coreutils/*.spec ~/rpmbuild/SPECS/
+          tar czf ~/rpmbuild/SOURCES/rust-coreutils.tar.gz rust-coreutils
+
+      - name: Build RPM
+        run: |
+          rpmbuild -ba ~/rpmbuild/SPECS/*.spec --define "_sourcedir ~/rpmbuild/SOURCES" --target ${{ matrix.rpm_arch }}
+
+      - name: Find built RPM
+        id: find_rpm
+        run: |
+          RPM_PATH=$(find ~/rpmbuild/RPMS -name "*.rpm" | head -n 1)
+          echo "rpm_path=$RPM_PATH" >> $GITHUB_OUTPUT
+
+      - name: Upload RPM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: rust-coreutils-${{ matrix.arch }}
+          path: ${{ steps.find_rpm.outputs.rpm_path }}
+
+  release:
+    needs: build-rpm
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./artifacts
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ./artifacts/**/*.rpm

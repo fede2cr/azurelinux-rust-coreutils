@@ -32,7 +32,7 @@ jobs:
     steps:
       - name: Install build dependencies
         run: |
-          ls /root/.gnupg/
+          ls -lh /root/.gnupg/
           find /root/.gnupg -type f -exec ls -lh \;
           #for file in $(find /root/.gnupg -type f); do echo $file; head $file ; tail $file;done
           rpm --import /root/.gnupg/*gpg

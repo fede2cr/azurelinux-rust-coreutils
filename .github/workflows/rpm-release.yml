@@ -2,11 +2,8 @@ name: Build and Release RPM
 
 on:
   push:
-    branches:
-      - main
-      - rpm-release
-#    tags:
-#      - 'v*.*.*'
+    tags:
+      - 'v*.*.*'
 
 jobs:
   build-rpm:

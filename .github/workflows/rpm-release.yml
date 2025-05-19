@@ -30,7 +30,6 @@ jobs:
         run: |
           GNUPGHOME=/root/.gnupg tdnf --nogpgcheck -y update
           GNUPGHOME=/root/.gnupg tdnf --nogpgcheck -y install rpmdevtools gcc rust cargo ca-certificates
-          update-ca-trust
 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -39,7 +38,7 @@ jobs:
         run: |
           rpmdev-setuptree
           cp rust-coreutils/*.spec ~/rpmbuild/SPECS/
-          spectool -g ~/rpmbuild/SPECS/rust-coreutils.spec
+          spectool -D -g ~/rpmbuild/SPECS/rust-coreutils.spec
 
       - name: Build RPM
         run: |

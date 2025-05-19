@@ -33,6 +33,7 @@ jobs:
       - name: Install build dependencies
         run: |
           #ls -lh /root/.gnupg/
+          echo "gpg home" $GNUPGHOME
           #ls -lh /root/.gnupg/private-keys-v1.d/
           gpg --output /root/.gnupg/azurelinux.asc --armor --export /root/.gnupg/trustdb.gpg
           ls -lh /root/.gnupg/

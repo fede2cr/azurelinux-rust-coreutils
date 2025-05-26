@@ -3,7 +3,7 @@
 #
 
 Name:           rust-coreutils
-Version:        0.0.30
+Version:        0.1.0
 Release:        1%{?dist}
 Summary:        Core utilities rewritten in Rust
 
@@ -259,5 +259,7 @@ ln -v -sf ../../../../bin/coreutils %{buildroot}%{_libdir}/cargo/bin/coreutils/y
 %doc README.md
 
 %changelog
-* Wed Apr 9 2025 Álvaro Figueroa <alvaro.figueroa@microsoft.com> - 0.3.0-1
+* Wed Apr  9 2025 Álvaro Figueroa <alvaro.figueroa@microsoft.com> - 0.30.0-1
 - Initial package
+* Wed May 16 2025 Álvaro Figueroa <alvaro.figueroa@microsoft.com> - 0.1.0-1
+- Upgrade to 0.1.0 from upstream

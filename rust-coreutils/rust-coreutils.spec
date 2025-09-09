@@ -3,7 +3,7 @@
 #
 
 Name:           rust-coreutils
-Version:        0.1.0
+Version:        %{version}
 Release:        1%{?dist}
 Summary:        Core utilities rewritten in Rust
 
@@ -25,7 +25,6 @@ cargo build --release --features unix
 
 %install
 install -Dm0755 target/release/coreutils %{buildroot}%{_bindir}/coreutils
-#install -Dm0755 target/release/%{name} %{buildroot}%{_bindir}/%{name}
 
 mkdir -v -p %{buildroot}%{_libdir}/cargo/bin/coreutils
 ln -v -sf ../../../../bin/coreutils %{buildroot}%{_libdir}/cargo/bin/coreutils/[
@@ -263,3 +262,5 @@ ln -v -sf ../../../../bin/coreutils %{buildroot}%{_libdir}/cargo/bin/coreutils/y
 - Initial package
 * Wed May 16 2025 Álvaro Figueroa <alvaro.figueroa@microsoft.com> - 0.1.0-1
 - Upgrade to 0.1.0 from upstream
+* Tue Sep  9 2025 Álvaro Figueroa <alvaro.figueroa@microsoft.com> - 0.1.0-3
+- Dynamic version in rpm

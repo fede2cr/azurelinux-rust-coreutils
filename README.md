@@ -17,7 +17,7 @@ Start with a brand new AzureLinux 3 VM. Then, inside of it, run:
 ```
 sudo tdnf -y update
 sudo tdnf -y install cargo lsb-release
-sudo tdnf -y install https://github.com/fede2cr/azurelinux-rust-coreutils/releases/download/v0.1.0-2/rust-coreutils-0.1.0-1.azl3.$(uname -m).rpm
+sudo tdnf -y install https://github.com/fede2cr/azurelinux-rust-coreutils/releases/download/v0.4.0/rust-coreutils-0.4.0-1.azl3.$(uname -m).rpm
 cargo install --git https://github.com/fede2cr/oxidizr --branch azurelinux
 sudo .cargo/bin/oxidizr enable -e coreutils
 ls -l $(which ls)
